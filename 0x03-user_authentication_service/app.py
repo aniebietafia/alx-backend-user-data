@@ -98,21 +98,14 @@ def log_out() -> None:
 
 
 @app.route('/reset_password', methods=['POST'], strict_slashes=False)
-def get_reset_password_token() -> str:
-    """generate a token and respond with a 200 HTTP status"""
+def get_reset_password_token():
+    """ generate a token and respond with a 200 HTTP status """
     try:
-        email = request.form['email']
-    except KeyError:
-        abort(403)
-
-    try:
-        reset_token = AUTH.get_reset_password_token(email)
+        email = request.form.get('email')
+        token = AUTH.get_reset_password_token(email)
+        return jsonify({"email": email, "reset_token": token}), 200
     except ValueError:
         abort(403)
-
-    msg = {"email": email, "reset_token": reset_token}
-
-    return jsonify(msg), 200
 
 
 if __name__ == "__main__":
