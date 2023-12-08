@@ -1,1 +1,3 @@
-# User Data Reopistory
+# User Data Repository 
+
+Data repository for personal user information 
